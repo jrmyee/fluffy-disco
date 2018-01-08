@@ -1,0 +1,144 @@
+package main;
+
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+public class Main {
+	static Interface frame;
+	double load;
+	double balance;
+
+	public static void main(String args[]){
+		frame=new Interface();
+		frame.setVisible(true);
+	}
+	
+	public void zeroClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+0;
+		text.setText(nextString);
+	}
+	public void oneClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+1;
+		text.setText(nextString);
+	}
+	public void twoClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+2;
+		text.setText(nextString);
+	}
+	public void threeClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+3;
+		text.setText(nextString);
+	}
+	public void fourClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+4;
+		text.setText(nextString);
+	}
+	public void fiveClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+5;
+		text.setText(nextString);
+	}
+	public void sixClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+6;
+		text.setText(nextString);
+	}
+	public void sevenClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+7;
+		text.setText(nextString);
+	}
+	public void eightClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+8;
+		text.setText(nextString);
+	}
+	public void nineClick(JTextField text){
+		String currentString=text.getText();
+		String nextString=currentString+9;
+		text.setText(nextString);
+	}
+	
+	public void clearClick(JTextField text){
+		text.setText("");
+	}
+	public void loadClick(JLabel label,JTextField text,JButton button,JButton button2,JButton deposit,JLabel label1){
+		balance=Double.parseDouble(label.getText());
+		if(!"0.0".equals(label.getText())){
+		if(ifHaveNumber(text)){
+			if(numberCheck(text)){
+				text.setText("");
+				button.setVisible(false);
+				button2.setVisible(true);
+				deposit.setEnabled(false);
+				label1.setText("How much?");
+			}
+		}
+		}else
+			JOptionPane.showMessageDialog(null,"Please deposit load", "Attention", JOptionPane.INFORMATION_MESSAGE);
+	}
+	public void setClick(JLabel label, JTextField text, JButton button,JButton button2,JButton deposit,JLabel label1){
+		if(!"".equals(text.getText())){
+			load=Double.parseDouble(text.getText());
+			double finalBalance=balance-load;
+			if(finalBalance>-1){
+				label.setText(Double.toString(finalBalance));
+				button.setVisible(true);
+				button2.setVisible(false);
+				deposit.setEnabled(true);
+				text.setText("");
+				label1.setText("Transaction");
+			}else
+				JOptionPane.showMessageDialog(null,"Insufficient Balance", "Attention", JOptionPane.INFORMATION_MESSAGE);
+		}else
+			JOptionPane.showMessageDialog(null,"Please input amount", "Attention", JOptionPane.INFORMATION_MESSAGE);
+
+	}
+	public boolean ifHaveNumber(JTextField text){
+		String number=text.getText();
+		if(number.equals("")){
+			JOptionPane.showMessageDialog(null,"Please input number", "Attention", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	public void depositClicked(JTextField text,JLabel label){
+		if(ifHaveNumber(text)){
+			Double input=Double.parseDouble(text.getText());
+			Double balance=Double.parseDouble(label.getText());
+			Double total=input+balance;
+			label.setText(total.toString());
+			text.setText("");
+		}
+	}
+	public boolean numberCheck(JTextField number){
+		String input=number.getText();
+		ArrayList<Character> chars = new ArrayList<Character>();
+		for (char c : input.toCharArray()) {
+		  chars.add(c);
+		}
+		if(number.getText().equals("1")){
+			JOptionPane.showMessageDialog(null,"Invalid number. Please start with 09*********", "Attention", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		else if(chars.get(0) != '0' || chars.get(1) != '9'){
+			JOptionPane.showMessageDialog(null,"Invalid number. Please start with 09*********", "Attention", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		else if(chars.size()<11 || chars.size()>11){
+			JOptionPane.showMessageDialog(null,"Must be 11 numbers", "Attention", JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+		else
+			return true;	
+	}
+}
